@@ -1,0 +1,27 @@
+version: "1.0"
+services:
+    backend:
+        container_name: backend
+        restart: always
+        build:
+            context: demo-spring
+            dockerfile: Dockerfile
+        ports:
+            - 8080:8080
+        networks:
+            - webapp
+    frontend:
+        container_name: frontend
+        restart: always
+        build:
+            context: demo-react
+            dockerfile: Dockerfile
+        ports:
+            - 80:80
+        depends_on:
+            - backend
+        networks:
+            - webapp
+networks:
+    webapp:
+        driver: bridge
