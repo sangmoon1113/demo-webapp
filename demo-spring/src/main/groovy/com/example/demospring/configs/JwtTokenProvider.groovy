@@ -22,8 +22,8 @@ class JwtTokenProvider {
     private final Logger LOGGER = LoggerFactory.getLogger(JwtTokenProvider.class);
     private final UserDetailsService userDetailsService;
 
-    @Value("my_secret")
-    String secretKey = "secretKey";
+    //@Value("my_secret_ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    String secretKey = "my_secret_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     final long tokenValidMillisecond = 1000L * 60 * 60;
 
     @Autowired

@@ -22,6 +22,25 @@ class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf().disable()
+                .formLogin()
+                .loginPage("/admin/login")
+                //.successHandler(new LoginAuthHandler())
+
+                .and()
+                .rememberMe()
+                .key("key")
+                .tokenValiditySeconds(86400 * 30) // 1달
+                .rememberMeParameter("remember-me")
+
+                .and()
+                .logout()
+                .deleteCookies("JSESSIONID")
+                //.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
+                .logoutSuccessUrl("/admin/login")
+                .invalidateHttpSession(true);
+
         return httpSecurity.build();
     }
 
