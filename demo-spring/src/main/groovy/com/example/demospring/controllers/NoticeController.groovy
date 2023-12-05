@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -32,11 +33,13 @@ class NoticeController {
 
     @GetMapping
     @PageableAsQueryParam
+    @ResponseStatus(HttpStatus.OK)
     NoticePagingResponseDto findAll(@Parameter(hidden = true) @PageableDefault(page = 0, size = 20) Pageable pageable) {
         return noticeService.findAll(pageable);
     }
 
     @GetMapping(value="/{id}")
+    @ResponseStatus(HttpStatus.OK)
     ResponseEntity<NoticeResponseDto> findById(@PathVariable(value = "id") Long id) {
         def responseDto = noticeService.findById(id);
         if(responseDto != null) {
@@ -47,6 +50,7 @@ class NoticeController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<NoticeResponseDto> insert(@RequestBody NoticeRequestDto requestDto) {
         def responseDto = noticeService.save(requestDto);
         if(responseDto != null) {
@@ -57,6 +61,7 @@ class NoticeController {
     }
 
     @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity update(@PathVariable(value = "id") Long id, @RequestBody NoticeRequestDto requestDto) {
         noticeService.save(id, requestDto);
 
