@@ -1,14 +1,16 @@
 package com.example.demospring.services
 
-import com.example.demospring.dtos.NoticeDto
+import com.example.demospring.dtos.NoticePagingResponseDto
+import com.example.demospring.dtos.NoticeResponseDto
 import com.example.demospring.dtos.NoticeRequestDto
+import org.springframework.data.domain.Pageable
 
 interface NoticeService {
-    NoticeDto findById(Long id);
+    NoticeResponseDto findById(Long id);
 
-    List<NoticeDto> findAll();
+    NoticePagingResponseDto findAll(Pageable pageable);
 
-    NoticeDto save(NoticeRequestDto requestDto);
+    NoticeResponseDto save(NoticeRequestDto requestDto);
 
     void save(Long id, NoticeRequestDto requestDto);
 }

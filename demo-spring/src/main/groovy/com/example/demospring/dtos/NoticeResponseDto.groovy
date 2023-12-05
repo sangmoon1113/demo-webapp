@@ -3,7 +3,7 @@ package com.example.demospring.dtos
 
 import java.time.LocalDateTime
 
-class NoticeDto {
+class NoticeResponseDto {
     Long id;
     String title;
     String content;

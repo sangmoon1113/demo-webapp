@@ -1,11 +1,13 @@
 package com.example.demospring.daos
 
 import com.example.demospring.entities.NoticeEntity
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 interface NoticeDAO {
     NoticeEntity findById(Long id);
 
-    List<NoticeEntity> findAll();
+    Page<NoticeEntity> findAll(Pageable pageable);
 
     NoticeEntity save(NoticeEntity entity);
 }
