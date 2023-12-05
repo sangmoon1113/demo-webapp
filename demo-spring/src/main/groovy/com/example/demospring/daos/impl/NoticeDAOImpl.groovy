@@ -29,7 +29,7 @@ class NoticeDAOImpl implements NoticeDAO{
 
     @Override
     Page<NoticeEntity> findAll(Pageable pageable) {
-        def p =  repository.findAll(pageable);
+        def p =  repository.findAllByOrderByIdDesc(pageable);
     }
 
     @Override
