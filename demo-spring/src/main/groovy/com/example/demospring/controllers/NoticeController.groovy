@@ -4,7 +4,10 @@ import com.example.demospring.dtos.NoticePagingResponseDto
 import com.example.demospring.dtos.NoticeResponseDto
 import com.example.demospring.dtos.NoticeRequestDto
 import com.example.demospring.services.NoticeService
+import groovy.util.logging.Slf4j
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
+@Slf4j
+@Tag(name = "공지사항", description = "공지사항")
 @RestController
 @RequestMapping("/api/notice")
 class NoticeController {
@@ -31,6 +36,7 @@ class NoticeController {
         this.noticeService = noticeService;
     }
 
+    @Operation(summary = "검색")
     @GetMapping
     @PageableAsQueryParam
     @ResponseStatus(HttpStatus.OK)
@@ -38,6 +44,7 @@ class NoticeController {
         return noticeService.findAll(pageable);
     }
 
+    @Operation(summary = "조회")
     @GetMapping(value="/{id}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<NoticeResponseDto> findById(@PathVariable(value = "id") Long id) {
@@ -49,6 +56,7 @@ class NoticeController {
         }
     }
 
+    @Operation(summary = "생성")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<NoticeResponseDto> insert(@RequestBody NoticeRequestDto requestDto) {
@@ -60,6 +68,7 @@ class NoticeController {
         }
     }
 
+    @Operation(summary = "수정")
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity update(@PathVariable(value = "id") Long id, @RequestBody NoticeRequestDto requestDto) {
