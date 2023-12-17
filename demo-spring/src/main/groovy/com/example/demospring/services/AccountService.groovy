@@ -6,5 +6,8 @@ import com.example.demospring.dtos.SignInResponseDto
 import org.springframework.stereotype.Service
 
 interface AccountService {
-    SignInResponseDto SignIn(SignInRequestDto requestDto)
+    SignInResponseDto SignIn(SignInRequestDto requestDto);
+    void resetOtpKey(String username);
+    String getOtpKey(String username);
+    Boolean authorizeOtpValue(String username, int value);
 }
