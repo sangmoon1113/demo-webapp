@@ -2,6 +2,8 @@ plugins {
     id 'groovy'
     id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'jacoco'
+    id 'org.sonarqube' version '4.4.1.3373'
 }
 
 group = 'com.example'
@@ -39,4 +41,38 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = '0.8.11'
+}
+
+jacocoTestCoverageVerification {
+}
+
+jacocoTestReport {
+    reports {
+        xml.required=true
+        html.required=true
+        csv.required=false
+        xml.destination file(layout.buildDirectory.dir("jacoco/jacoco.xml").get().asFile)
+        html.destination file(layout.buildDirectory.dir("jacoco/jacoco.html").get().asFile)
+    }
+}
+
+sonar {
+    properties {
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.projectKey", "test"
+        property "sonar.scm.provider", "git"
+        property "sonar.login", "squ_5d5b64e1645b82f0acfd6ca5b467fa3ba366f2dc"
+        property "sonar.projectBaseDir", "C:\\repos\\demo-webapp"
+        property "sonar.sources", "C:\\repos\\demo-webapp\\demo-spring\\src"
+        property "sonar.language", "java"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.coverage.jacoco.xmlReportPaths", layout.buildDirectory.dir("jacoco/jacoco.xml").get().asFile
+        property 'sonar.exclusions', '**/test/**, **/Q*.java, **/*Doc*.java, **/resources/**'
+
+    }
 }
