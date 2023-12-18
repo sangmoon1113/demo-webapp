@@ -1,12 +1,10 @@
-package com.example.demospring.controllers
+package com.example.demospring.controller
 
-import com.example.demospring.DemoSpringApplication
-import com.example.demospring.configs.JwtTokenProvider
-import com.example.demospring.dtos.AccountDto
-import com.example.demospring.dtos.SignInRequestDto
-import com.example.demospring.dtos.SignInResponseDto
+
+import com.example.demospring.config.security.JwtTokenProvider
+import com.example.demospring.dto.SignInRequestDto
+import com.example.demospring.dto.SignInResponseDto
 import com.example.demospring.services.AccountService
-import com.warrenstrange.googleauth.GoogleAuthenticator
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator
 import groovy.util.logging.Slf4j
@@ -17,7 +15,9 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.server.RequestPath
+import org.springframework.security.access.prepost.PostAuthorize
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -42,19 +42,34 @@ class AccountController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    @Operation(summary = "로그인")
     @PostMapping("/sign-in")
     SignInResponseDto signIn(@RequestBody SignInRequestDto requestDto) {
         return accountService.SignIn(requestDto)
     }
 
+    @Operation(summary = "Token 검증")
     @Parameters([
         @Parameter(name = "X-AUTH-TOKEN", required = true, in = ParameterIn.HEADER, schema = @Schema(implementation = String.class))
     ])
-    @PostMapping("/test")
-    void test(@RequestHeader("X-AUTH-TOKEN") String header) {
+    @PostMapping("/validate-token")
+    Boolean validateToken(@RequestHeader("X-AUTH-TOKEN") String header) {
         def result = jwtTokenProvider.validateToken(header)
         System.out.println(result);
-        def a = "";
+        return result;
+    }
+
+//    @PostAuthorize("username == test")
+    @PostMapping("/test1")
+    void test1(@RequestHeader("X-AUTH-TOKEN") String header) {
+        def a = SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        def b = "";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/test2")
+    void test2(@RequestHeader("X-AUTH-TOKEN") String header) {
+        def a = SecurityContextHolder.getContext().getAuthentication().getPrincipal()
         def b = "";
     }
 

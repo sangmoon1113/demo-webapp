@@ -1,4 +1,4 @@
-package com.example.demospring.dtos
+package com.example.demospring.dto
 
 
 import java.time.LocalDateTime

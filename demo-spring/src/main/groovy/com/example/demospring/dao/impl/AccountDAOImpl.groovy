@@ -1,6 +1,6 @@
-package com.example.demospring.daos.impl
+package com.example.demospring.dao.impl
 
-import com.example.demospring.daos.AccountDAO
+import com.example.demospring.dao.AccountDAO
 import com.example.demospring.entities.AccountEntity
 import com.example.demospring.repositories.AccountRepository
 import org.springframework.beans.factory.annotation.Autowired

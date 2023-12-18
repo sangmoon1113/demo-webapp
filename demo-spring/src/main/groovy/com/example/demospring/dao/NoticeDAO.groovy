@@ -1,4 +1,4 @@
-package com.example.demospring.daos
+package com.example.demospring.dao
 
 import com.example.demospring.entities.NoticeEntity
 import org.springframework.data.domain.Page

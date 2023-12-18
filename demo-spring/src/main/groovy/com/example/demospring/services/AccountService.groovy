@@ -1,9 +1,8 @@
 package com.example.demospring.services
 
-import com.example.demospring.dtos.AccountDto
-import com.example.demospring.dtos.SignInRequestDto
-import com.example.demospring.dtos.SignInResponseDto
-import org.springframework.stereotype.Service
+
+import com.example.demospring.dto.SignInRequestDto
+import com.example.demospring.dto.SignInResponseDto
 
 interface AccountService {
     SignInResponseDto SignIn(SignInRequestDto requestDto);

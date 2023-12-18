@@ -1,8 +1,8 @@
-package com.example.demospring.controllers
+package com.example.demospring.controller
 
-import com.example.demospring.dtos.NoticePagingResponseDto
-import com.example.demospring.dtos.NoticeResponseDto
-import com.example.demospring.dtos.NoticeRequestDto
+import com.example.demospring.dto.NoticePagingResponseDto
+import com.example.demospring.dto.NoticeResponseDto
+import com.example.demospring.dto.NoticeRequestDto
 import com.example.demospring.services.NoticeService
 import groovy.util.logging.Slf4j
 import io.swagger.v3.oas.annotations.Operation

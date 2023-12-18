@@ -1,15 +1,17 @@
 package com.example.demospring.services.impl
 
-import com.example.demospring.daos.NoticeDAO
-import com.example.demospring.dtos.NoticePagingResponseDto
-import com.example.demospring.dtos.NoticeResponseDto
-import com.example.demospring.dtos.NoticeRequestDto
+import com.example.demospring.dao.NoticeDAO
+import com.example.demospring.dto.NoticePagingResponseDto
+import com.example.demospring.dto.NoticeRequestDto
+import com.example.demospring.dto.NoticeResponseDto
 import com.example.demospring.entities.NoticeEntity
 import com.example.demospring.services.NoticeService
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
+@Slf4j
 @Service
 class NoticeServiceImpl implements NoticeService {
 

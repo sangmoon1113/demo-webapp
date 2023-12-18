@@ -1,8 +1,8 @@
 package com.example.demospring.services
 
-import com.example.demospring.dtos.NoticePagingResponseDto
-import com.example.demospring.dtos.NoticeResponseDto
-import com.example.demospring.dtos.NoticeRequestDto
+import com.example.demospring.dto.NoticePagingResponseDto
+import com.example.demospring.dto.NoticeResponseDto
+import com.example.demospring.dto.NoticeRequestDto
 import org.springframework.data.domain.Pageable
 
 interface NoticeService {

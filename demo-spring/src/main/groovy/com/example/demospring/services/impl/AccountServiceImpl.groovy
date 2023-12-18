@@ -1,13 +1,11 @@
 package com.example.demospring.services.impl
 
-
-import com.example.demospring.configs.JwtTokenProvider
-import com.example.demospring.daos.AccountDAO
-import com.example.demospring.dtos.SignInRequestDto
-import com.example.demospring.dtos.SignInResponseDto
+import com.example.demospring.config.security.JwtTokenProvider
+import com.example.demospring.dao.AccountDAO
+import com.example.demospring.dto.SignInRequestDto
+import com.example.demospring.dto.SignInResponseDto
 import com.example.demospring.services.AccountService
 import com.warrenstrange.googleauth.GoogleAuthenticator
-import com.warrenstrange.googleauth.GoogleAuthenticatorKey
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -26,13 +24,14 @@ class AccountServiceImpl implements AccountService {
 
     @Override
     SignInResponseDto SignIn(SignInRequestDto requestDto) {
-        def responseDto = new SignInResponseDto();
-        if(requestDto.username == "test")
-        {
-            responseDto.success = true;
-            responseDto.username = "test";
-            def roles = new ArrayList<String>();
-            responseDto.token = jwtTokenProvider.createToken("test", roles);
+        def responseDto = new SignInResponseDto(username: requestDto.username);
+        def entity = dao.findByUsername(requestDto.username);
+        if(entity != null) {
+            if(entity.password == requestDto.password) {
+                responseDto.success = true;
+                def roles = new ArrayList<String>();
+                responseDto.token = jwtTokenProvider.createToken("test", roles);
+            }
         }
 
         return responseDto;

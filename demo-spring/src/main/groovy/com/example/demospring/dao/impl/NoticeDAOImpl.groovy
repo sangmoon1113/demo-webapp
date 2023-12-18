@@ -1,6 +1,6 @@
-package com.example.demospring.daos.impl
+package com.example.demospring.dao.impl
 
-import com.example.demospring.daos.NoticeDAO
+import com.example.demospring.dao.NoticeDAO
 import com.example.demospring.entities.NoticeEntity
 import com.example.demospring.repositories.NoticeRepository
 import org.springframework.beans.factory.annotation.Autowired
